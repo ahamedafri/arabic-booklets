@@ -88,7 +88,8 @@ mark{background:var(--mark);color:inherit;border-radius:5px;padding:0 4px}
 .language-help{position:relative}
 .language-help summary{list-style:none;display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--accent);font-weight:700;cursor:pointer}
 .language-help summary::-webkit-details-marker{display:none}
-.language-help .bi{position:fixed;right:12px;top:var(--language-help-top,auto);z-index:2;width:min(15rem,calc(100vw - 2rem));padding:12px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 16px #0002}
+.language-help-close{position:absolute;right:6px;top:6px;z-index:3;width:34px;height:34px;border:0;border-radius:50%;background:var(--paper);color:var(--ink);font-size:22px;cursor:pointer}
+.language-help-panel{position:fixed;right:12px;z-index:2;width:min(15rem,calc(100vw - 2rem));padding:12px 48px 12px 12px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 16px #0002}
 .seg button[data-lang="si"]{font-family:var(--font-si)}
 .flashbtn{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 12px;font-size:13.5px;cursor:pointer;min-height:34px;white-space:nowrap}
 .flashbtn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
@@ -5077,11 +5078,11 @@ BOOKS.push({
        '<button type="button" data-lang="ta">தமிழ்</button>'+
        '<button type="button" data-lang="si">සිංහල</button>'+
        '<button type="button" data-lang="en">English</button></div>';
-    s+='<details class="language-help"><summary aria-label="மொழி உதவி · භාෂා උදව් · Language help">!</summary>'+
+    s+='<details class="language-help"><summary aria-label="மொழி உதவி · භාෂා උදව් · Language help">!</summary><div class="language-help-panel">'+
        bi('முதலில் மூன்று மொழிகளும் தேர்ந்தெடுக்கப்பட்டிருக்கும். வேண்டாத மொழிகளைத் தொட்டு தேர்வை நீக்குங்கள். குறைந்தது ஒரு மொழியைத் தேர்ந்தெடுத்து வையுங்கள்.',
           'All three languages start ticked. Tap any language you don’t need to untick it. Keep at least one selected.',
           'මුලින් භාෂා තුනම තෝරා ඇත. අවශ්‍ය නැති භාෂා ඔබා තේරීම ඉවත් කරන්න. අවම වශයෙන් එක් භාෂාවක් තෝරා තබන්න.')+
-       '</details>';
+       '<button type="button" class="language-help-close" aria-label="மூடு · වසන්න · Close">×</button></div></details>';
     if(m)s+='<button type="button" class="flashbtn" aria-pressed="false">'+ONE('பொருளை மறை','Hide meanings','අර්ථ සඟවන්න')+'</button>';
     return s+'</div></div>';
   }
@@ -5221,10 +5222,24 @@ BOOKS.push({
     app.innerHTML=h;
   }
 
+  var arrivalHelpChecked=false;
+  function showArrivalHelp(){
+    if(arrivalHelpChecked)return;
+    arrivalHelpChecked=true;
+    var help=document.querySelector('.language-help');
+    if(!help)return;
+    try{
+      if(localStorage.getItem('arabic-booklets-language-help-seen'))return;
+    }catch(e){}
+    help.open=true;
+    try{localStorage.setItem('arabic-booklets-language-help-seen','1');}catch(e){}
+  }
+
   function route(){
     var mm=/^#book-(\d+)$/.exec(location.hash||'');
     if(mm&&byNo[+mm[1]])renderBook(byNo[+mm[1]]);else renderLibrary();
     applyPrefs();
+    showArrivalHelp();
     window.scrollTo(0,0);
   }
 
@@ -5238,6 +5253,13 @@ BOOKS.push({
   }
 
   app.addEventListener('click',function(e){
+    var closeHelp=e.target.closest('.language-help-close');
+    if(closeHelp){
+      var help=closeHelp.closest('details');
+      help.open=false;
+      help.querySelector('summary').focus();
+      return;
+    }
     var seg=e.target.closest('.seg button');
     if(seg){
       var l=seg.dataset.lang,on=LANGS.filter(function(x){return prefs.show[x];});
