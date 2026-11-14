@@ -85,6 +85,10 @@ mark{background:var(--mark);color:inherit;border-radius:5px;padding:0 4px}
 .seg button{border:0;background:transparent;padding:6px 12px;font-size:13.5px;cursor:pointer;min-height:34px;white-space:nowrap;color:var(--muted)}
 .seg button+button{border-left:1px solid var(--line)}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:600}
+.language-help{position:relative}
+.language-help summary{list-style:none;display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:var(--paper);color:var(--accent);font-weight:700;cursor:pointer}
+.language-help summary::-webkit-details-marker{display:none}
+.language-help .bi{position:fixed;right:12px;top:var(--language-help-top,auto);z-index:2;width:min(15rem,calc(100vw - 2rem));padding:12px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 16px #0002}
 .seg button[data-lang="si"]{font-family:var(--font-si)}
 .flashbtn{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 12px;font-size:13.5px;cursor:pointer;min-height:34px;white-space:nowrap}
 .flashbtn[aria-pressed="true"]{background:var(--ink);border-color:var(--ink)}
@@ -102,13 +106,13 @@ mark{background:var(--mark);color:inherit;border-radius:5px;padding:0 4px}
 .bi>p{padding-left:11px;border-left:3px solid var(--line)}
 .bi>p.ta{border-left-color:var(--ta-line)}
 .bi>p.si{border-left-color:var(--si-line)}
-.howto{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.howto li{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px}
-.step-number{align-self:flex-start;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;margin-bottom:4px}
-.howto strong.en{color:var(--ink);font-size:inherit}
+
+
+
+
 .seg button[aria-pressed="true"]::before{content:"✓";margin-inline-end:.35em}
-.howto .ta, .howto .si{font-weight:600}
-.howto .en{font-size:14px}
+
+
 .shelf-head{border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:14px;--big:22px;--small:15px}
 .shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px}
 .bookcard{--c:#0f9b7a;position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-height:246px;padding:14px 14px 14px 22px;
@@ -433,7 +437,7 @@ body.flash .tap:not(.open)::after{content:var(--tap-hint);font-size:11.5px;color
 .tile{display:inline-grid;place-items:center;min-width:42px;height:42px;border-radius:10px;font-family:var(--font-ar);font-size:26px;font-weight:700;color:#fff}
 
 @media (max-width:640px){
-  .howto{grid-template-columns:minmax(0,1fr)}
+
   .rung{grid-template-columns:38px minmax(0,1fr)}
   .rung .ans{grid-column:2;justify-content:flex-start}
 }
@@ -5073,6 +5077,11 @@ BOOKS.push({
        '<button type="button" data-lang="ta">தமிழ்</button>'+
        '<button type="button" data-lang="si">සිංහල</button>'+
        '<button type="button" data-lang="en">English</button></div>';
+    s+='<details class="language-help"><summary aria-label="மொழி உதவி · භාෂා උදව් · Language help">!</summary>'+
+       bi('முதலில் மூன்று மொழிகளும் தேர்ந்தெடுக்கப்பட்டிருக்கும். வேண்டாத மொழிகளைத் தொட்டு தேர்வை நீக்குங்கள். குறைந்தது ஒரு மொழியைத் தேர்ந்தெடுத்து வையுங்கள்.',
+          'All three languages start ticked. Tap any language you don’t need to untick it. Keep at least one selected.',
+          'මුලින් භාෂා තුනම තෝරා ඇත. අවශ්‍ය නැති භාෂා ඔබා තේරීම ඉවත් කරන්න. අවම වශයෙන් එක් භාෂාවක් තෝරා තබන්න.')+
+       '</details>';
     if(m)s+='<button type="button" class="flashbtn" aria-pressed="false">'+ONE('பொருளை மறை','Hide meanings','අර්ථ සඟවන්න')+'</button>';
     return s+'</div></div>';
   }
@@ -5092,15 +5101,7 @@ BOOKS.push({
       '<h1>Arabic Picture Booklets</h1>'+
       '<p class="lib-sub ta" lang="ta">அரபு மொழி — படங்களுடன், தமிழ், சிங்களம், ஆங்கிலத்தில்</p>'+
       '<p class="lib-sub si" lang="si">අරාබි භාෂාව — පින්තූර සමඟ, දෙමළ, සිංහල සහ ඉංග්‍රීසියෙන්</p>'+
-      '</header>'+
-      '<ol class="howto" role="list">'+
-        '<li><span class="step-number" aria-hidden="true">1</span>'+TE('மொழிகளைத் தேர்ந்தெடுங்கள்','Choose your languages','භාෂා තෝරන්න','strong')+
-          bi('முதலில் மூன்று மொழிகளும் தேர்ந்தெடுக்கப்பட்டிருக்கும். வேண்டாத மொழிகளை மேலே அழுத்தி, அவற்றின் தேர்வை நீக்குங்கள்.','All three languages are selected at first. Tap any language above to untick it. Keep at least one selected.','මුලින් භාෂා තුනම තෝරා ඇත. අවශ්‍ය නැති භාෂා ඉහළින් ඔබා ඒවායේ තේරීම ඉවත් කරන්න. අවම වශයෙන් එක් භාෂාවක් තෝරා තබන්න.')+'</li>'+
-        '<li><span class="step-number" aria-hidden="true">2</span>'+TE('ஒரு சிறு புத்தகத்தைத் திறக்கவும்','Open a booklet','කුඩා පොතක් විවෘත කරන්න','strong')+
-          bi('கீழே உள்ள இரு பருவங்களிலிருந்தும் ஒரு தலைப்பைத் தேர்ந்தெடுங்கள். படங்கள், சொற்பொருள்கள், இலக்கண விளக்கங்கள், உதாரண வாக்கியங்கள் மூலம் அரபு மொழியைக் கற்றுக்கொள்ளுங்கள்.','Pick a topic from either semester below. Learn Arabic with pictures, word meanings, grammar explanations, and example sentences.','පහළ වාර දෙකෙන් ඕනෑම මාතෘකාවක් තෝරන්න. පින්තූර, වචනවල අර්ථ, ව්‍යාකරණ පැහැදිලි කිරීම් සහ උදාහරණ වාක්‍ය සමඟ අරාබි ඉගෙන ගන්න.')+'</li>'+
-        '<li><span class="step-number" aria-hidden="true">3</span>'+TE('நினைவிலிருந்து சொல்லிப் பாருங்கள்','Practise from memory','මතකයෙන් කියා බලන්න','strong')+
-          bi('«பொருளை மறை» என்பதை அழுத்தி, பொருளை நினைவிலிருந்து சொல்லுங்கள். அட்டையைத் தொட்டுச் சரிபார்த்து, இறுதியில் உள்ள சிறு சோதனையைச் செய்யுங்கள்.','Turn on “Hide meanings” and try to recall the meaning. Tap a card to check, then try the short quiz at the end.','“අර්ථ සඟවන්න” ඔබා අර්ථය මතක් කර බලන්න. කාඩ්පත ඔබා පිළිතුර බලන්න. ඉන්පසු අවසානයේ ඇති කෙටි පරීක්ෂණය කරන්න.')+'</li>'+
-      '</ol>';
+      '</header>';
     [[1,'முதலாம் பருவம் — புத்தகம் 1 அடிப்படைகள்','Semester 1 — Book 1 basics','පළමු වාරය — පොත 1 මූලික කරුණු'],
      [2,'இரண்டாம் பருவம் — புத்தகம் 2, பகுதி 1','Semester 2 — Book 2, Part 1','දෙවන වාරය — පොත 2, 1 කොටස']].forEach(function(g){
       h+='<section><div class="shelf-head stack"><h2 class="ta" lang="ta">'+g[1]+'</h2><h2 class="si" lang="si">'+g[3]+'</h2><h2 class="en">'+g[2]+'</h2></div><div class="shelf">';
