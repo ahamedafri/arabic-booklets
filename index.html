@@ -5045,11 +5045,11 @@ BOOKS.push({
   var byNo={};BOOKS.forEach(function(b){byNo[b.no]=b;});
   var readyNos=MANIFEST.filter(function(m){return byNo[m.no];}).map(function(m){return m.no;});
   var KEY='arabic-booklets-v2';
-  var prefs={show:{ta:true,si:true,en:true},flash:false};
+  var prefs={show:{ta:false,si:false,en:true},flash:false};
   try{
     var s=JSON.parse(localStorage.getItem(KEY)||'null');
     if(s&&typeof s==='object'&&s.show){LANGS.forEach(function(l){prefs.show[l]=s.show[l]!==false;});prefs.flash=!!s.flash;}
-    if(!LANGS.some(function(l){return prefs.show[l];}))prefs.show.ta=true;
+    if(!LANGS.some(function(l){return prefs.show[l];}))prefs.show.en=true;
   }catch(e){}
   function savePrefs(){try{localStorage.setItem(KEY,JSON.stringify(prefs));}catch(e){}}
   function applyPrefs(){
@@ -5079,9 +5079,9 @@ BOOKS.push({
        '<button type="button" data-lang="si">සිංහල</button>'+
        '<button type="button" data-lang="en">English</button></div>';
     s+='<details class="language-help"><summary aria-label="மொழி உதவி · භාෂා උදව් · Language help">!</summary><div class="language-help-panel">'+
-       bi('முதலில் மூன்று மொழிகளும் தேர்ந்தெடுக்கப்பட்டிருக்கும். வேண்டாத மொழிகளைத் தொட்டு தேர்வை நீக்குங்கள். குறைந்தது ஒரு மொழியைத் தேர்ந்தெடுத்து வையுங்கள்.',
-          'All three languages start ticked. Tap any language you don’t need to untick it. Keep at least one selected.',
-          'මුලින් භාෂා තුනම තෝරා ඇත. අවශ්‍ය නැති භාෂා ඔබා තේරීම ඉවත් කරන්න. අවම වශයෙන් එක් භාෂාවක් තෝරා තබන්න.')+
+       bi('முதலில் ஆங்கிலம் தேர்ந்தெடுக்கப்பட்டிருக்கும். தமிழையோ சிங்களத்தையோ காட்ட, அதற்கான பொத்தானைத் தொடுங்கள். தேர்ந்தெடுத்த மொழியை மறைக்க, மீண்டும் தொடுங்கள். குறைந்தது ஒரு மொழியைத் தேர்ந்தெடுத்து வையுங்கள்.',
+          'English is selected by default. Tap தமிழ் or සිංහල to show Tamil or Sinhala. Tap a selected language to hide it. Keep at least one selected.',
+          'මුලින් ඉංග්‍රීසි තෝරා ඇත. දෙමළ හෝ සිංහල පෙන්වීමට අදාළ බොත්තම ඔබන්න. තෝරා ඇති භාෂාවක් සැඟවීමට එය නැවත ඔබන්න. අවම වශයෙන් එක් භාෂාවක් තෝරා තබන්න.')+
        '<button type="button" class="language-help-close" aria-label="மூடு · වසන්න · Close">×</button></div></details>';
     if(m)s+='<button type="button" class="flashbtn" aria-pressed="false">'+ONE('பொருளை மறை','Hide meanings','අර්ථ සඟවන්න')+'</button>';
     return s+'</div></div>';
