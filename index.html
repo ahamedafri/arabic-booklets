@@ -104,7 +104,9 @@ mark{background:var(--mark);color:inherit;border-radius:5px;padding:0 4px}
 .bi>p.si{border-left-color:var(--si-line)}
 .howto{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .howto li{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px}
-.howto .emo{font-size:30px;line-height:1.2}
+.step-number{align-self:flex-start;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;margin-bottom:4px}
+.howto strong.en{color:var(--ink);font-size:inherit}
+.seg button[aria-pressed="true"]::before{content:"✓";margin-inline-end:.35em}
 .howto .ta, .howto .si{font-weight:600}
 .howto .en{font-size:14px}
 .shelf-head{border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:14px;--big:22px;--small:15px}
@@ -5090,14 +5092,14 @@ BOOKS.push({
       '<h1>Arabic Picture Booklets</h1>'+
       '<p class="lib-sub ta" lang="ta">அரபு மொழி — படங்களுடன், தமிழ், சிங்களம், ஆங்கிலத்தில்</p>'+
       '<p class="lib-sub si" lang="si">අරාබි භාෂාව — පින්තූර සමඟ, දෙමළ, සිංහල සහ ඉංග්‍රීසියෙන්</p>'+
-      bi('ஒவ்வொரு சிறு புத்தகமும் ஒரே ஒரு தலைப்பைப் பற்றியது: படங்கள், விளக்கங்கள், உதாரண வாக்கியங்கள், கடைசியில் ஒரு சிறு சோதனை. உங்கள் வகுப்புக் குறிப்புகளின் வரிசையிலேயே எழுதப்பட்டவை. மேலே உள்ள பொத்தான்களால் எந்த மொழிகள் தெரிய வேண்டும் என்று தேர்ந்தெடுக்கலாம்.',
-         'Each small booklet covers one topic: pictures, explanations, example sentences, and a short self-check at the end. They follow your class notes, in order. Use the buttons at the top to choose which languages to show.',
-         'සෑම කුඩා පොතක්ම එක් මාතෘකාවක් ගැනයි: පින්තූර, පැහැදිලි කිරීම්, උදාහරණ වාක්‍ය, අවසානයේ කෙටි ස්වයං පරීක්ෂණයක්. ඔබේ පන්ති සටහන් වල පිළිවෙළටම ලියා ඇත. පෙන්විය යුතු භාෂා තෝරා ගැනීමට ඉහළ ඇති බොත්තම් භාවිතා කරන්න.')+
       '</header>'+
-      '<ol class="howto">'+
-        '<li><span class="emo" aria-hidden="true">👀</span>'+TE('படத்தையும் அரபுச் சொல்லையும் பாருங்கள்','Look at the picture and the Arabic word','පින්තූරය සහ අරාබි වචනය බලන්න')+'</li>'+
-        '<li><span class="emo" aria-hidden="true">🗣️</span>'+TE('சத்தமாகச் சொல்லிப் பாருங்கள்','Say it out loud','හයියෙන් කියා බලන්න')+'</li>'+
-        '<li><span class="emo" aria-hidden="true">🙈</span>'+TE('"பொருளை மறை" அழுத்தி, நினைவிலிருந்து சொல்லுங்கள்; பிறகு தொட்டுச் சரிபாருங்கள்','Turn on "Hide meanings", say the meaning from memory, then tap to check','"අර්ථ සඟවන්න" ඔබා, මතකයෙන් කියන්න; පසුව ස්පර්ශ කර පරීක්ෂා කරන්න')+'</li>'+
+      '<ol class="howto" role="list">'+
+        '<li><span class="step-number" aria-hidden="true">1</span>'+TE('மொழிகளைத் தேர்ந்தெடுங்கள்','Choose your languages','භාෂා තෝරන්න','strong')+
+          bi('முதலில் மூன்று மொழிகளும் தேர்ந்தெடுக்கப்பட்டிருக்கும். வேண்டாத மொழிகளை மேலே அழுத்தி, அவற்றின் தேர்வை நீக்குங்கள்.','All three languages are selected at first. Tap any language above to untick it. Keep at least one selected.','මුලින් භාෂා තුනම තෝරා ඇත. අවශ්‍ය නැති භාෂා ඉහළින් ඔබා ඒවායේ තේරීම ඉවත් කරන්න. අවම වශයෙන් එක් භාෂාවක් තෝරා තබන්න.')+'</li>'+
+        '<li><span class="step-number" aria-hidden="true">2</span>'+TE('ஒரு சிறு புத்தகத்தைத் திறக்கவும்','Open a booklet','කුඩා පොතක් විවෘත කරන්න','strong')+
+          bi('கீழே உள்ள இரு பருவங்களிலிருந்தும் ஒரு தலைப்பைத் தேர்ந்தெடுங்கள். படங்கள், சொற்பொருள்கள், இலக்கண விளக்கங்கள், உதாரண வாக்கியங்கள் மூலம் அரபு மொழியைக் கற்றுக்கொள்ளுங்கள்.','Pick a topic from either semester below. Learn Arabic with pictures, word meanings, grammar explanations, and example sentences.','පහළ වාර දෙකෙන් ඕනෑම මාතෘකාවක් තෝරන්න. පින්තූර, වචනවල අර්ථ, ව්‍යාකරණ පැහැදිලි කිරීම් සහ උදාහරණ වාක්‍ය සමඟ අරාබි ඉගෙන ගන්න.')+'</li>'+
+        '<li><span class="step-number" aria-hidden="true">3</span>'+TE('நினைவிலிருந்து சொல்லிப் பாருங்கள்','Practise from memory','මතකයෙන් කියා බලන්න','strong')+
+          bi('«பொருளை மறை» என்பதை அழுத்தி, பொருளை நினைவிலிருந்து சொல்லுங்கள். அட்டையைத் தொட்டுச் சரிபார்த்து, இறுதியில் உள்ள சிறு சோதனையைச் செய்யுங்கள்.','Turn on “Hide meanings” and try to recall the meaning. Tap a card to check, then try the short quiz at the end.','“අර්ථ සඟවන්න” ඔබා අර්ථය මතක් කර බලන්න. කාඩ්පත ඔබා පිළිතුර බලන්න. ඉන්පසු අවසානයේ ඇති කෙටි පරීක්ෂණය කරන්න.')+'</li>'+
       '</ol>';
     [[1,'முதலாம் பருவம் — புத்தகம் 1 அடிப்படைகள்','Semester 1 — Book 1 basics','පළමු වාරය — පොත 1 මූලික කරුණු'],
      [2,'இரண்டாம் பருவம் — புத்தகம் 2, பகுதி 1','Semester 2 — Book 2, Part 1','දෙවන වාරය — පොත 2, 1 කොටස']].forEach(function(g){
